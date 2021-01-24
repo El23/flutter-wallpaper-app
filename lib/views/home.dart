@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wallpaper_app/data/data.dart';
 import 'package:wallpaper_app/model/categories_model.dart';
 import 'package:wallpaper_app/widgets/widget.dart';
-
+import 'package:http/http.dart' as http;
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -11,6 +11,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<CategoriesModel> categories  ;
+  getWallpapers(){
+    var response = http.get("https://api.pexels.com/v1/curated?per_page=1",
+    headers: {
+      "Authorization" : apiKey
+    }); print(response.body.toString());
+
+  }
 
   @override
   void initState(){
