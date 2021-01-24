@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/data/data.dart';
 import 'package:wallpaper_app/model/categories_model.dart';
@@ -48,15 +49,20 @@ class _HomeState extends State<Home> {
             ),
 
             SizedBox(height: 16, ),
-            ListView.builder(
-              itemCount: categories.length,
-              shrinkWrap: true,
-              itemBuilder: (context,index){
-                return CategoriesTile(
-                  title: categories[index].categoriesName,
-                  imgUrl: categories[index].imgUrl,
-                );
-              },
+            Container(
+              height: 80,
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                itemCount: categories.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context,index){
+                  return CategoriesTile(
+                    title: categories[index].categoriesName,
+                    imgUrl: categories[index].imgUrl,
+                  );
+                },
+              ),
             )
           ],
         ),
@@ -69,17 +75,25 @@ class CategoriesTile extends StatelessWidget{
   final String imgUrl;
   final String title;
 
-  CategoriesTile({  this.title,this.imgUrl});
+  CategoriesTile({ @required this.title,this.imgUrl});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(right: 4),
+
       child: Stack(
         children:<Widget> [
+          ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(imgUrl,height: 50,width: 100,fit: BoxFit.none,)),
+
           Container(
-            child: Image.network(imgUrl),
-          ),
-          Container(child: Text(title),),
+
+            color: Colors.black38,
+            height: 50,width: 100,
+            alignment: Alignment.center,
+            child: Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),),),
         ],
       ),
     );
