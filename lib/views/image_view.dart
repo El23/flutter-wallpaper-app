@@ -18,6 +18,16 @@ class ImageView extends StatefulWidget {
 }
 
 class _ImageViewState extends State<ImageView> {
+  var filePath;
+
+//  final String imgPath;
+// _launchURL (String url)async{
+//   if(await canLaunch(url)){
+//     await _launchURL(url;)
+//   }else{
+//     throw 'could not launch $url';
+//   }
+// }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +55,7 @@ class _ImageViewState extends State<ImageView> {
 
                 GestureDetector(
                   onTap: (){
-                    Navigator.pop(context);
+                    _save();
                   },
                   child: Stack(
                     children: <Widget>[
