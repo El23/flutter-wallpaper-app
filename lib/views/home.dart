@@ -20,8 +20,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   List<CategoriesModel> categories ;
+  int noOfImageToLoad =30;
+  List <PhotosModel>photos;
   List<WallpaperModel> wallpapers ;
   TextEditingController searchController = new TextEditingController();
+  ScrollController _scrollController = new ScrollController();
 
   getWallpapers() async {
     var response = await http.get(
@@ -42,6 +45,14 @@ class _HomeState extends State<Home> {
     getWallpapers();
     categories = getCategories();
     super.initState();
+
+    _scrollController.addListener(() {
+      if(_scrollController.position.pixels==_scrollController.position.maxScrollExtent){
+        noOfImageToLoad = noOfImageToLoad +30;
+        getWallpapers();
+      }
+    });
+
   }
 
   @override

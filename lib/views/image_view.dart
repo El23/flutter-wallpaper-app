@@ -1,5 +1,12 @@
+import 'dart:ffi';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ImageView extends StatefulWidget {
   final String imgUrl;
@@ -87,4 +94,24 @@ class _ImageViewState extends State<ImageView> {
       ),
     );
   }
+
+ _save() async{
+    await _askPermission();
+    var response = await Dio().get(
+      widget.imgUrl,
+      options: Options(responseType: ResponseType.bytes)
+    );
+    final result = await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
+    print(result);
+    Navigator.pop(context);
+ }
+  _askPermission() async{
+    if(Platform.isIOS){
+      Map<PermissionGroup, PermissionStatus> permission =
+          await PermissionHandler().requestPermissions([PermissionGroup.photos]);
+    }else{
+      PermissionStatus permission = await PermissionHandler().checkPermissionStatus(PermissionGroup.storage);
+    }
+  }
+
 }
