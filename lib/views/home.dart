@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
 
   List<CategoriesModel> categories ;
   int noOfImageToLoad =30;
-  List <PhotosModel>photos;
+
   List<WallpaperModel> wallpapers ;
   TextEditingController searchController = new TextEditingController();
   ScrollController _scrollController = new ScrollController();
