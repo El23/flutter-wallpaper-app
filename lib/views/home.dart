@@ -16,12 +16,10 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
-
 class _HomeState extends State<Home> {
 
   List<CategoriesModel> categories ;
   int noOfImageToLoad =30;
-
   List<WallpaperModel> wallpapers ;
   TextEditingController searchController = new TextEditingController();
   ScrollController _scrollController = new ScrollController();
@@ -39,7 +37,6 @@ class _HomeState extends State<Home> {
     });
     setState(() {});
   }
-
   @override
   void initState() {
     getWallpapers();
@@ -52,9 +49,7 @@ class _HomeState extends State<Home> {
         getWallpapers();
       }
     });
-
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
